@@ -38,13 +38,25 @@ describe('TGateServerAuth', () => {
       assert.ok;
     });
 
-    it('make request to ' + targetHost + ' (header with authkey)', (done) => {
-      axios.get(targetHost, { headers: {authKey} }
+    it('make request to ' + targetHost + ' (header with authkey and authtool=test)', (done) => {
+      axios.get(targetHost, { headers: {authKey, authTool: 'test'} }
       ).then(res=>{
-        assert.ok;
+        assert.equal(res.status, 204);
         done();
       }).catch(err => {
         assert.fail(err);
+        done();
+      });
+    });
+
+    it('make request to ' + targetHost + ' (header with authkey and without authtool)', (done) => {
+      axios.get(targetHost, { headers: {authKey} }
+      ).then(res=>{
+        assert.fail('error: should not return OK.');
+        done();
+      }).catch(err => {
+        assert.equal(err.response.data.status, 400);
+        assert.equal(err.response.data.error, 'ERROR_AUTH_TOOL');
         done();
       });
     });

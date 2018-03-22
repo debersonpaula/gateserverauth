@@ -41,8 +41,11 @@ export class TGateServerAuth extends TGateServer {
         case 'session':
           session(req, res, this._auth);
           break;
+        case 'test':
+          writeResponse(res, 204, {});
+          break;
         default:
-          res.end();
+          throwError(res, enums.ERROR_AUTH_TOOL);
       }
     } else {
       // execute next listener
