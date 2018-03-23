@@ -114,6 +114,8 @@ function logout(req: http.IncomingMessage, res: http.ServerResponse, auth: TGate
     if (auth.destroyAccess(id)) {
       res.writeHead(204);
     }
+  } else {
+    throwError(res, enums.ERROR_SESSION_FAIL);
   }
   res.end();
 }
