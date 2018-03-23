@@ -1,6 +1,6 @@
 {
   "name": "gateserverauth",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Gateway Server + Authenticator",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "gateauth": "0.0.3",
+    "gateauth": "0.0.4",
     "gateserver": "0.0.3"
   },
   "repository": {

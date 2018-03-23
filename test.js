@@ -152,6 +152,21 @@ describe('TGateServerAuth', () => {
       });
     });
 
+    it(`re-check session for user '${userlogin}'`, (done) => {
+      const authTool = 'session',
+            authToken = accessData.token.tokenId,
+            authId = accessData.id;
+      axios.get(targetHost, { headers: {authKey, authTool, authToken, authId} }
+      ).then(res=>{
+        assert.fail('session attempt with wrong credentials should not return');
+        done();
+      }).catch(err => {
+        assert.equal(err.response.data.status, 403);
+        assert.equal(err.response.data.error, 'ERROR_SESSION_FAIL');
+        done();
+      });
+    });
+
     it(`login user '${userlogin}' with wrong pass '${wrongpass}'`, (done) => {
       const authTool = 'login';
       const data = {userlogin, userpass: wrongpass};
